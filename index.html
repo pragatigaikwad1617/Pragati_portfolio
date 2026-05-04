@@ -1,937 +1,742 @@
-:root {
-  --background: #f7f0f7;
-  --surface-container-lowest: #f7f0f7;
-  --surface-container-low: #f7f0f7;
-  --surface-container: #f7f0f7;
-  --surface-container-high: #f7f0f7;
-
-  --outline-variant: #15537c; /* darker grey */
-}
-
-.bg-base {
-  position: fixed;
-  inset: 0;
-  background-color: var(--background);
-  z-index: -2;
-}
-
-.cursor-follower {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(
-    circle,
-    rgba(133, 106, 255, 0.6) 0%, /*update this to play with the color of the cursor*/
-    transparent 70%
-  );
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: -1;
-  filter: blur(80px);
-  will-change: transform;
-  transform: translate(-100%, -100%);
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family: "Inter", sans-serif;
-  background-color: transparent;
-  color: var(--on-surface);
-  margin: 0;
-  padding: 0;
-  -webkit-font-smoothing: antialiased;
-}
-
-h1,
-h2,
-h3,
-h4,
-.font-headline {
-  font-family: "Manrope", sans-serif;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-/* Utils */
-.container {
-  max-width: 80rem;
-  margin: 0 auto;
-  padding: 0 2rem;
-}
-
-.text-primary {
-  color: var(--primary);
-}
-
-.text-muted {
-  color: var(--on-surface-variant);
-}
-
-.text-center {
-  text-align: center;
-}
-
-.mb-2 {
-  margin-bottom: 0.5rem;
-}
-
-.mb-4 {
-  margin-bottom: 1rem;
-}
-
-.mt-4 {
-  margin-top: 1rem;
-}
-
-.mt-8 {
-  margin-top: 2rem;
-}
-
-.mb-12 {
-  margin-bottom: 3rem;
-}
-
-/* Nav */
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 50;
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-}
-
-.nav-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  max-width: 80rem;
-  margin: 0 auto;
-}
-
-.nav-logo {
-  font-size: 1.25rem;
-  font-weight: 700;
-  letter-spacing: -0.05em;
-  color: #0f172a;
-}
-
-.nav-links {
-  display: flex;
-  gap: 2rem;
-  font-weight: 600;
-}
-
-.nav-links a {
-  color: #475569;
-  transition: color 0.3s;
-}
-
-.nav-links a:hover,
-.nav-links a:focus,
-.nav-links a:active {
-  color: var(--primary);
-}
-
-/* Main Layout */
-main {
-  padding-top: 6rem;
-  overflow-x: hidden;
-}
-
-section {
-  padding: 6rem 0;
-}
-
-.bg-low {
-  background-color: transparent;
-}
-
-.section-label {
-  color: var(--primary);
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  display: block;
-  margin-bottom: 1rem;
-}
-
-.section-title {
-  font-size: 2.5rem;
-  font-weight: 800;
-  margin: 0 0 1.5rem 0;
-}
-
-/* Hero */
-.hero {
-  min-height: 870px;
-  display: flex;
-  align-items: center;
-}
-
-.hero-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-  align-items: center;
-}
-
-.hero-subtitle {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--on-surface-variant);
-  margin-top: 1rem;
-}
-
-.hero-title {
-  font-size: 4.5rem;
-  font-weight: 800;
-  line-height: 1;
-  margin: 1rem 0;
-  letter-spacing: -0.05em;
-}
-
-.hero-desc {
-  font-size: 1.125rem;
-  color: var(--on-surface-variant);
-  max-width: 32rem;
-  line-height: 1.6;
-}
-
-.hero-actions {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  margin-top: 2rem;
-}
-
-.btn-primary {
-  background: var(--primary);
-  color: var(--on-primary);
-  padding: 1rem 2rem;
-  border-radius: 9999px;
-  font-weight: 700;
-  box-shadow: 0 10px 15px -3px rgba(0, 91, 196, 0.2);
-  transition: all 0.3s;
-  display: inline-block;
-  cursor: pointer;
-  border: none;
-}
-
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 20px 25px -5px rgba(0, 91, 196, 0.2);
-}
-
-.btn-link {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-weight: 700;
-}
-
-.btn-link .icon {
-  transition: transform 0.3s;
-}
-
-.btn-link:hover .icon {
-  transform: translateX(4px);
-}
-
-/* Hero Image */
-.hero-image-wrap {
-  position: relative;
-  aspect-ratio: 1/1;
-}
-
-.hero-image-bg {
-  position: absolute;
-  inset: 0;
-  background: rgba(67, 136, 253, 0.1);
-  border-radius: 3rem;
-  transform: rotate(3deg);
-  z-index: -1;
-}
-
-.hero-image-inner {
-  position: absolute;
-  inset: 0;
-  background: var(--surface-container-lowest);
-  border-radius: 3rem;
-  overflow: hidden;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-}
-
-.hero-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 50% 32%;
-  filter: grayscale(1) contrast(1.25);
-  transition:
-    filter 0.7s,
-    transform 0.7s;
-}
-
-.hero-image-wrap:hover .hero-img {
-  filter: grayscale(0) contrast(1);
-  transform: scale(1.05);
-}
-
-/* About Section */
-.about-grid {
-  display: grid;
-  grid-template-columns: 4fr 8fr;
-  gap: 3rem;
-}
-
-.about-box {
-  background: #ffffff; /* same pink tone */
-  padding: 2rem;
-  border-radius: 1.5rem;
-
-  border: 2px solid #2c3437;
-
-  box-shadow:
-    0 10px 20px rgba(0, 0, 0, 0.25),
-    0 25px 50px rgba(0, 0, 0, 0.2);
-
-  line-height: 1.6;
-  transition: all 0.3s ease;
-}
-.about-box:hover {
-  transform: translateY(-10px) scale(1.02);
-
-  box-shadow:
-    0 20px 30px rgba(0, 0, 0, 0.35),
-    0 40px 70px rgba(0, 0, 0, 0.3);
-}
-
-.about-cards {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  margin-bottom: 2rem;
-}
-
-.about-card {
-  background: #ffffff; /* same pink tone */
-  padding: 2.5rem;
-  border-radius: 1.5rem;
-
-  border: 2px solid #2c3437;
-
-  box-shadow:
-    0 10px 20px rgba(0, 0, 0, 0.25),
-    0 25px 50px rgba(0, 0, 0, 0.2);
-
-  transition: all 0.3s ease;
-}
-
-.about-card:hover {
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  transform: translateY(-5px);
-}
-
-.icon-box {
-  width: 3rem;
-  height: 3rem;
-  background: rgba(0, 91, 196, 0.1);
-  border-radius: 0.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--primary);
-  margin-bottom: 1rem;
-  transition:
-    background 0.3s,
-    color 0.3s;
-}
-
-.about-card:hover .icon-box {
-  background: var(--primary);
-  color: var(--on-primary);
-}
-
-.tech-journey {
-  position: relative;
-  padding: 4px;
-  background: linear-gradient(
-    to bottom right,
-    rgba(0, 91, 196, 0.1),
-    transparent
-  );
-  border-radius: 1.5rem;
-}
-
-.tech-journey-inner {
-  background: #ffffff; /* same pink tone */
-  padding: 3rem;
-  border-radius: 1.5rem;
-
-  border: 2px solid #2c3437;
-
-  box-shadow:
-    0 10px 20px rgba(0, 0, 0, 0.25),
-    0 25px 50px rgba(0, 0, 0, 0.2);
-
-  transition: all 0.3s ease;
-}
-
-.tech-journey-inner:hover {
-  transform: translateY(-10px) scale(1.02);
-
-  box-shadow:
-    0 20px 30px rgba(0, 0, 0, 0.35),
-    0 40px 70px rgba(0, 0, 0, 0.3);
-}
-
-.tech-title {
-  font-size: 0.875rem;
-  color: var(--primary);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
-}
-
-.tech-desc {
-  font-size: 1.5rem;
-  font-weight: 600;
-  line-height: 1.4;
-}
-
-/* Skills Grid */
-.skills-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 1.5rem;
-}
-
-.skill-card {
-  background: #ffffff; /* same theme */
-  padding: 2rem;
-  border-radius: 1.5rem;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-
-  border: 2px solid #2c3437;
-
-  box-shadow:
-    0 8px 15px rgba(0, 0, 0, 0.2),
-    0 20px 30px rgba(0, 0, 0, 0.15);
-
-  transition: all 0.3s ease;
-}
-
-.skill-card:hover {
-  transform: translateY(-10px) scale(1.05);
-
-  box-shadow:
-    0 20px 30px rgba(0, 0, 0, 0.35),
-    0 40px 60px rgba(0, 0, 0, 0.3);
-
-  border-color: var(--primary);
-}
-
-.skill-num {
-  font-family: monospace;
-  font-size: 2.25rem;
-  color: rgba(0, 91, 196, 0.1);
-  position: absolute;
-  top: 1rem;
-  right: 1.5rem;
-  transition: color 0.3s;
-}
-
-.skill-card:hover .skill-num {
-  color: var(--primary);
-}
-
-.skill-icon {
-  font-size: 2.5rem;
-  color: var(--primary);
-  margin-bottom: 1rem;
-}
-
-.skill-name {
-  font-weight: 700;
-  margin: 0.5rem 0;
-}
-
-.skill-desc {
-  font-size: 0.75rem;
-  color: var(--on-surface-variant);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-
-/* Education */
-.edu-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 5rem;
-}
-
-.edu-item {
-  background: #ffffff; /* same pink shade (adjust if needed) */
-  padding: 2rem;
-  border-radius: 1.5rem;
-
-  border: 2px solid #2c3437;
-
-  box-shadow:
-    0 10px 20px rgba(0, 0, 0, 0.25),
-    0 25px 50px rgba(0, 0, 0, 0.2);
-
-  margin-bottom: 2rem;
-  position: relative;
-
-  transition: all 0.3s ease;
-}
-
-.edu-dot {
-  position: absolute;
-  left: -11px;
-  top: 0;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: var(--on-primary);
-  border: 4px solid var(--primary);
-  transition: background 0.3s;
-}
-
-.edu-item:hover .edu-dot {
-  background: var(--primary);
-}
-
-.edu-date {
-  display: inline-block;
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--primary);
-  background: rgba(0, 91, 196, 0.1);
-  padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
-  margin-bottom: 1rem;
-}
-
-.edu-title {
-  font-size: 1.25rem;
-  font-weight: 700;
-  margin: 0 0 0.5rem 0;
-}
-
-.edu-subtitle {
-  font-weight: 500;
-  color: var(--on-surface-variant);
-  margin-bottom: 0.5rem;
-}
-
-.edu-text {
-  font-size: 0.875rem;
-  color: rgba(89, 96, 100, 0.7);
-  line-height: 1.5;
-}
-
-.student-card {
-  background: #ffffff; /* important for contrast */
-  padding: 2rem;
-  border-radius: 1.5rem;
-  border: 2px solid #2c3437;
-  transition: all 0.3s ease;
-
-  /* Strong visible shadow */
-  box-shadow:
-    0 10px 20px rgba(0, 0, 0, 0.25),
-    0 25px 50px rgba(0, 0, 0, 0.2);
-}
-
-.student-card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 1.5rem;
-}
-
-.student-card p {
-  color: var(--on-surface-variant);
-  line-height: 1.6;
-}
-
-.tags-wrap {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  margin-top: 2rem;
-}
-
-.tag {
-  background: var(--surface-container-high);
-  padding: 0.5rem 1rem;
-  border-radius: 0.375rem;
-  font-size: 0.625rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--on-surface-variant);
-}
-
-/* Achievements */
-.achievements-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
-}
-
-@media (min-width: 768px) {
-  .achievements-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-.achieve-card {
-  background: var(--surface-container-low);
-  padding: 2.5rem;
-  border-radius: 1.5rem;
-  transition: all 0.4s ease;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
-  border: 2px solid transparent; /* important */
-}
-
-.achieve-card.featured {
-  grid-column: 1 / -1;
-  background: var(--surface-container);
-}
-
-.achieve-card:hover {
-  transform: translateY(-10px) scale(1.02);
-
-  border: 2px solid #000;
-
-  box-shadow:
-    0 20px 30px rgba(0, 0, 0, 0.5),
-    0 40px 80px rgba(0, 0, 0, 0.45);
-}
-
-.achieve-card .icon {
-  font-size: 3rem;
-  margin-bottom: 1.5rem;
-  color: var(--primary);
-  transition: color 0.3s;
-}
-
-.achieve-card h3 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-}
-
-/* Certificate Cards */
-.cert-card {
-  gap: 1rem;
-}
-
-.cert-btn {
-  background: var(--surface-container-highest);
-  color: var(--on-surface);
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
-  font-weight: 700;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  width: max-content;
-  transition: all 0.3s;
-  margin-top: auto;
-}
-
-.cert-btn:hover {
-  background: white;
-  color: var(--primary);
-}
-
-.achieve-card:hover .cert-btn {
-  background: white;
-  color: var(--primary);
-}
-
-/* Contact */
-.contact {
-  text-align: center;
-  max-width: 400px;
-  margin: 0 auto;
-}
-
-.contact-email {
-  display: inline-flex;
-  align-items: center;
-  gap: 1rem;
-  background: var(--surface-container-lowest);
-  padding: 1.5rem 2.5rem;
-  border-radius: 9999px;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-  margin-top: 2rem;
-  transition: transform 0.3s;
-}
-
-.contact-email:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 25px -5px rgba(0, 91, 196, 0.1);
-}
-
-.contact-icon {
-  width: 3rem;
-  height: 3rem;
-  background: rgba(0, 91, 196, 0.1);
-  color: var(--primary);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.contact-email span {
-  font-weight: 700;
-  font-size: 1.25rem;
-}
-
-/* Footer */
-.footer {
-  background: transparent;
-  padding: 3rem 0;
-  border-top: 1px solid var(--surface-container-high);
-}
-
-.footer-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.footer-logo {
-  font-weight: 700;
-  font-family: "Manrope", sans-serif;
-  font-size: 1.125rem;
-}
-
-.footer-text {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--on-surface-variant);
-}
-
-.footer-links {
-  display: flex;
-  gap: 2rem;
-}
-
-.footer-links a {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--on-surface-variant);
-  font-weight: 600;
-  transition: color 0.3s;
-}
-
-.footer-links a:hover {
-  color: var(--primary);
-}
-
-/* Responsive Overrides */
-@media (max-width: 1024px) {
-  .hero-grid,
-  .about-grid,
-  .edu-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .hero-title {
-    font-size: 3.5rem;
-  }
-
-  .about-grid .sticky {
-    position: static;
-  }
-}
-
-@media (max-width: 768px) {
-  .nav-links {
-    display: none;
-  }
-
-  .footer-content {
-    flex-direction: column;
-    gap: 1.5rem;
-    text-align: center;
-  }
-
-  .hero-title {
-    font-size: 2.5rem;
-  }
-
-  .about-cards {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ===== Anthropic Certifications Section ===== */
-
-#antropic-tab {
-  padding: 4rem 0;
-  background-color: transparent;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Removed static background gradient to favor dynamic follower */
-#antropic-tab::before {
-  display: none;
-}
-
-.cert-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2rem;
-  margin-top: 2rem;
-}
-
-.cert-card {
-  background: white;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  border-radius: 1.5rem;
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow:
-    0 4px 6px -1px rgba(0, 0, 0, 0.05),
-    0 2px 4px -1px rgba(0, 0, 0, 0.03);
-  height: 100%;
-}
-
-.cert-card:hover {
-  transform: translateY(-12px);
-  box-shadow:
-    0 20px 25px -5px rgba(0, 0, 0, 0.1),
-    0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  border-color: #7a3ea1;
-}
-
-.cert-img-container {
-  width: 100%;
-  aspect-ratio: 4/3;
-  background: #f8f9fa;
-  border-radius: 1rem;
-  overflow: hidden;
-  margin-bottom: 0.75rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid rgba(0, 0, 0, 0.03);
-}
-
-.cert-img-container img {
-  width: 100%;
-  height: 100%;
-  padding: 0.5rem;
-  object-fit: contain;
-  transition: transform 0.5s ease;
-}
-
-.cert-card:hover .cert-img-container img {
-  transform: scale(1.05);
-}
-
-.cert-card h3 {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #1a1a1a;
-  margin-bottom: 0.25rem;
-  line-height: 1.2;
-}
-
-.cert-card p {
-  font-size: 0.9375rem;
-  color: #666;
-  line-height: 1.4;
-  margin-bottom: 0.75rem;
-  flex-grow: 1;
-}
-
-.view-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.25rem;
-  background: #7a3ea1;
-  color: white;
-  text-decoration: none;
-  border-radius: 0.75rem;
-  font-weight: 600;
-  font-size: 0.875rem;
-  transition: all 0.3s ease;
-  margin-top: auto;
-}
-
-.view-btn:hover {
-  background: #56007a;
-  box-shadow: 0 4px 12px rgba(122, 62, 161, 0.3);
-}
-
-.view-btn .material-symbols-outlined {
-  font-size: 1.125rem;
-}
-
-/* Responsive Overrides for Cert Grid */
-@media (max-width: 1200px) {
-  .cert-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (max-width: 992px) {
-  .cert-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 640px) {
-  .cert-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-
-  #antropic-tab {
-    padding: 4rem 0;
-  }
-
-  .cert-card {
-    padding: 1.25rem;
-  }
-}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Pragati Gaikwad | Engineering Portfolio</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div class="bg-base"></div>
+    <div class="cursor-follower"></div>
+    <nav class="navbar">
+      <div class="nav-content">
+        <a class="nav-logo" href="#">Pragati Gaikwad</a>
+        <div class="nav-links">
+          <a href="#home">Home</a>
+          <a href="#about">About</a>
+          <a href="#skills">Skills</a>
+          <a href="#education">Education</a>
+          <a href="#achievements">Achievements</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <section id="home" class="hero">
+        <div class="container hero-grid">
+          <div>
+            <span class="hero-subtitle">Engineering Student // 2025</span>
+            <h1 class="hero-title">
+              Hi, I'm <br /><span>Pragati Gaikwad !</span>
+            </h1>
+            <h2
+              class="font-headline mb-4"
+              style="font-size: 1.5rem; font-weight: 600"
+            >
+              First Year Engineering Student
+            </h2>
+            <p class="hero-desc">
+              An aspiring engineer with a deep passion for web development and a
+              constant desire to learn, grow, and innovate. Dedicated to
+              creating modern, user-friendly, and impactful digital experiences
+              through clean and efficient code. Always exploring new
+              technologies, embracing challenges, and building the future one
+              line of code at a time.
+            </p>
+            <div class="hero-actions">
+              <a class="btn-primary" href="#contact">Contact Me</a>
+              <a class="btn-link" href="#about">
+                Learn more
+                <span class="material-symbols-outlined icon"
+                  >arrow_forward</span
+                >
+              </a>
+            </div>
+          </div>
+          <div class="hero-image-wrap">
+            <div class="hero-image-bg"></div>
+            <div class="hero-image-inner">
+              <img
+                alt="Professional Portrait"
+                class="hero-img"
+                src="assets/image.png"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="about" class="bg-low">
+        <div class="container about-grid">
+          <div
+            class="sticky"
+            style="position: sticky; top: 8rem; height: max-content"
+          >
+            <span class="section-label">01 // Identity</span>
+            <h2 class="section-title">Who I Am</h2>
+            <div class="about-box">
+              <p class="text-muted">
+                I am currently pursuing my First Year of Engineering at
+                <strong>MIT Academy of Engineering (MITAOE)</strong>. My
+                academic journey is driven by a strong curiosity to understand
+                how systems work, solve real-world problems, and continuously
+                learn new technologies. Along with my passion for engineering, I
+                also have a deep desire to serve the nation and build a
+                meaningful career in the <strong>Defence Forces</strong>, where
+                I can contribute with dedication, discipline, and
+                responsibility.
+              </p>
+            </div>
+          </div>
+          <div>
+            <div class="about-cards">
+              <div class="about-card">
+                <div class="icon-box">
+                  <span class="material-symbols-outlined">code</span>
+                </div>
+                <h3 class="font-headline" style="font-size: 1.25rem">
+                  Foundation
+                </h3>
+                <p class="text-muted" style="font-size: 1rem; margin-top: 1rem">
+                  Mastering the fundamentals of programming through rigorous
+                  coursework, hands-on practice, and personal projects.
+                  Continuously developing problem-solving skills, logical
+                  thinking, and coding efficiency by working with different
+                  programming concepts, building real-world applications, and
+                  exploring new technologies.
+                </p>
+              </div>
+              <div class="about-card">
+                <div class="icon-box">
+                  <span class="material-symbols-outlined">military_tech</span>
+                </div>
+                <h3 class="font-headline" style="font-size: 1.25rem">
+                  Aspiration
+                </h3>
+                <p class="text-muted" style="font-size: 1rem; margin-top: 1rem">
+                  Committed to developing the discipline, leadership qualities,
+                  physical fitness, and technical expertise required for a
+                  successful future in the Defence Forces. Constantly working on
+                  self-improvement, responsibility, and determination to serve
+                  the nation with dedication and honor.
+                </p>
+              </div>
+            </div>
+            <div class="tech-journey">
+              <div class="tech-journey-inner">
+                <div class="tech-title">Technical Journey</div>
+                <div class="tech-desc" style="font-size: 0.95rem">
+                  Building a strong technical foundation in
+                  <strong>HTML, CSS, C, C++, and Python</strong> through
+                  continuous learning, practical projects, and hands-on
+                  experience. Every project is an opportunity to improve
+                  problem-solving skills, creativity, and technical confidence,
+                  bringing me one step closer to becoming a versatile engineer
+                  capable of solving complex real-world and global challenges.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="skills" style="padding-bottom: 2rem">
+        <div class="container">
+          <div class="text-center mb-12">
+            <span class="section-label text-center">02 // Capabilities</span>
+            <h2 class="section-title text-center">Technical Toolkit</h2>
+          </div>
+          <div class="skills-grid">
+            <div class="skill-card">
+              <div class="skill-num">01</div>
+              <div class="material-symbols-outlined skill-icon">html</div>
+              <h3 class="skill-name font-headline">HTML</h3>
+              <p class="skill-desc">Semantic Web</p>
+            </div>
+            <div class="skill-card">
+              <div class="skill-num">02</div>
+              <div class="material-symbols-outlined skill-icon">css</div>
+              <h3 class="skill-name font-headline">CSS</h3>
+              <p class="skill-desc">Design Systems</p>
+            </div>
+            <div class="skill-card">
+              <div class="skill-num">03</div>
+              <div class="material-symbols-outlined skill-icon">terminal</div>
+              <h3 class="skill-name font-headline">C / C++</h3>
+              <p class="skill-desc">Core Logic</p>
+            </div>
+            <div class="skill-card">
+              <div class="skill-num">04</div>
+              <div class="material-symbols-outlined skill-icon">
+                data_object
+              </div>
+              <h3 class="skill-name font-headline">Python</h3>
+              <p class="skill-desc">Data &amp; Scripts</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="education" class="bg-low">
+        <div class="container edu-grid">
+          <div>
+            <span class="section-label">03 // Academics</span>
+            <h2 class="section-title">Education</h2>
+            <div style="margin-top: 3rem">
+              <div class="edu-item">
+                <div class="edu-dot"></div>
+                <span class="edu-date">2025 — PRESENT</span>
+                <h3 class="edu-title font-headline">B.Tech in Engineering</h3>
+                <p class="edu-subtitle">MIT Academy of Engineering (MITAOE)</p>
+                <p class="edu-text">
+                  Focusing on foundational engineering principles and core
+                  computer science concepts.
+                </p>
+              </div>
+              <div class="edu-item">
+                <div class="edu-dot"></div>
+                <span class="edu-date">GRADUATED 2024</span>
+                <h3 class="edu-title font-headline">
+                  Higher Secondary Certificate (HSC)
+                </h3>
+                <p class="edu-subtitle">
+                  Savitribai Phule University Affiliated
+                </p>
+                <p class="edu-text">
+                  Completed pre-engineering science curriculum with academic
+                  distinction.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div>
+            <span class="section-label">04 // Journey</span>
+            <h2 class="section-title">Student Life</h2>
+            <div class="student-card" style="margin-top: 3rem">
+              <div class="student-card-header">
+                <div>
+                  <h3
+                    class="font-headline"
+                    style="font-size: 1.25rem; font-weight: 700"
+                  >
+                    First-Year Student
+                  </h3>
+                  <p class="text-primary" style="font-weight: 600">
+                    MITAOE Campus
+                  </p>
+                </div>
+                <span
+                  style="
+                    font-family: monospace;
+                    font-size: 0.75rem;
+                    background: var(--surface-container-high);
+                    padding: 0.25rem 0.5rem;
+                    border-radius: 9999px;
+                  "
+                  >2025 – PRESENT</span
+                >
+              </div>
+              <p>
+                Actively building a robust foundation in programming and web
+                development. Immersed in the engineering ecosystem,
+                participating in coding challenges, and collaborating on
+                early-stage technical projects to bridge the gap between theory
+                and practice.
+              </p>
+              <div class="tags-wrap">
+                <span class="tag">Web Dev</span>
+                <span class="tag">Logic Design</span>
+                <span class="tag">System Analysis</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="achievements">
+        <div class="container">
+          <div style="margin-bottom: 4rem; max-width: 48rem">
+            <span class="section-label">05 // Recognition</span>
+            <h2 class="section-title">Achievements</h2>
+            <p class="text-muted" style="font-size: 1.125rem">
+              A collection of academic milestones and certifications attained
+              throughout my educational journey.
+            </p>
+          </div>
+          <div class="achievements-grid">
+            <div class="achieve-card featured">
+              <span class="material-symbols-outlined icon"
+                >workspace_premium</span
+              >
+              <h3 class="font-headline font-bold">Academic Distinction</h3>
+              <p class="text-muted">
+                Consistently recognized for excellence throughout high school
+                and the beginning of my engineering degree.
+              </p>
+            </div>
+
+            <div class="achieve-card cert-card">
+              <span class="material-symbols-outlined icon">history_edu</span>
+              <h3 class="font-headline font-bold">HSC Certificate</h3>
+              <p class="text-muted">
+                Higher Secondary Examination Distinction.
+              </p>
+              <a href="assets/hs.jpeg" target="_blank" class="cert-btn">
+                View Certificate
+                <span
+                  class="material-symbols-outlined"
+                  style="font-size: 1.2rem"
+                  >open_in_new</span
+                >
+              </a>
+            </div>
+
+            <div class="achieve-card cert-card">
+              <span class="material-symbols-outlined icon">school</span>
+              <h3 class="font-headline font-bold">SSC Certificate</h3>
+              <p class="text-muted">
+                Secondary School Examination Distinction.
+              </p>
+              <a href="assets/s.jpeg" target="_blank" class="cert-btn">
+                View Certificate
+                <span
+                  class="material-symbols-outlined"
+                  style="font-size: 1.2rem"
+                  >open_in_new</span
+                >
+              </a>
+            </div>
+
+            <div class="achieve-card cert-card">
+              <span class="material-symbols-outlined icon">palette</span>
+              <h3 class="font-headline font-bold">Elementary Drawing</h3>
+
+              <p class="text-muted">
+                Maharashtra State Directorate of Art Examination.<br />
+                <strong>Grade: A</strong>
+              </p>
+
+              <!-- Buttons in Horizontal Row -->
+              <div class="btn-row">
+                <a href="assets/e1.jpeg" target="_blank" class="cert-btn">
+                  View Certificate
+                  <span
+                    class="material-symbols-outlined"
+                    style="font-size: 1.2rem"
+                    >open_in_new</span
+                  >
+                </a>
+
+                <a href="assets/img1.jpeg" target="_blank" class="cert-btn">
+                  View Drawing
+                  <span
+                    class="material-symbols-outlined"
+                    style="font-size: 1.2rem"
+                    >open_in_new</span
+                  >
+                </a>
+              </div>
+            </div>
+
+            <div class="achieve-card cert-card">
+              <span class="material-symbols-outlined icon">brush</span>
+              <h3 class="font-headline font-bold">Intermediate Drawing</h3>
+              <p class="text-muted">
+                Maharashtra State Directorate of Art Examination.<br /><strong
+                  >Grade: B</strong
+                >
+              </p>
+              <div
+                style="
+                  display: flex;
+                  gap: 0.5rem;
+                  flex-wrap: wrap;
+                  margin-top: auto;
+                "
+              >
+                <a
+                  href="assets/img2.jpeg"
+                  target="_blank"
+                  class="cert-btn"
+                  style="margin-top: 0"
+                >
+                  Drawing
+                  <span
+                    class="material-symbols-outlined"
+                    style="font-size: 1.2rem"
+                    >open_in_new</span
+                  >
+                </a>
+                <a
+                  href="assets/img3.jpeg"
+                  target="_blank"
+                  class="cert-btn"
+                  style="margin-top: 0"
+                >
+                  Drawing
+                  <span
+                    class="material-symbols-outlined"
+                    style="font-size: 1.2rem"
+                    >open_in_new</span
+                  >
+                </a>
+              </div>
+            </div>
+            <div class="achieve-card cert-card">
+              <span class="material-symbols-outlined icon">palette</span>
+              <h3 class="font-headline font-bold">Python Certificates</h3>
+
+              <p class="text-muted">
+                Maharashtra State Directorate of Art Examination.<br />
+                <strong>Grade: A</strong>
+              </p>
+
+              <!-- Horizontal Buttons -->
+              <div class="btn-row">
+                <a href="assets/python1.jpeg" target="_blank" class="cert-btn">
+                  View Certificate 1
+                  <span
+                    class="material-symbols-outlined"
+                    style="font-size: 1.2rem"
+                    >open_in_new</span
+                  >
+                </a>
+
+                <a href="assets/python2.jpeg" target="_blank" class="cert-btn">
+                  View Certificate 2
+                  <span
+                    class="material-symbols-outlined"
+                    style="font-size: 1.2rem"
+                    >open_in_new</span
+                  >
+                </a>
+              </div>
+            </div>
+
+            <div class="achieve-card cert-card">
+              <span class="material-symbols-outlined icon">brush</span>
+              <h3 class="font-headline font-bold">
+                Extra Curricular Activity.
+              </h3>
+              <p class="text-muted">
+                Speech Competition.<br /><strong></strong>
+              </p>
+              <div
+                style="
+                  display: flex;
+                  gap: 0.5rem;
+                  flex-wrap: wrap;
+                  margin-top: auto;
+                "
+              >
+                <a
+                  href="assets/speech.jpeg"
+                  target="_blank"
+                  class="cert-btn"
+                  style="margin-top: 0"
+                >
+                  View Certificate 1
+                  <span
+                    class="material-symbols-outlined"
+                    style="font-size: 1.2rem"
+                    >open_in_new</span
+                  >
+                </a>
+                <a
+                  href="assets/g1.jpeg"
+                  target="_blank"
+                  class="cert-btn"
+                  style="margin-top: 0"
+                >
+                  View Certificate 2
+                  <span
+                    class="material-symbols-outlined"
+                    style="font-size: 1.2rem"
+                    >open_in_new</span
+                  >
+                </a>
+              </div>
+            </div>
+
+            <!-- NEW 1: Web Development -->
+            <div class="achieve-card cert-card">
+              <span class="material-symbols-outlined icon">language</span>
+              <h3 class="font-headline font-bold">Tableau Certificate</h3>
+
+              <p class="text-muted">
+                Certificate in Tableau Data Visualization<br />
+              </p>
+
+              <div class="btn-row">
+                <a href="assets/tableue.jpeg" target="_blank" class="cert-btn">
+                  View Certificate
+                  <span
+                    class="material-symbols-outlined"
+                    style="font-size: 1.2rem"
+                    >open_in_new</span
+                  >
+                </a>
+              </div>
+            </div>
+
+            <!-- NEW 2: Workshops & Seminars -->
+            <div class="achieve-card cert-card">
+              <span class="material-symbols-outlined icon">groups</span>
+              <h3 class="font-headline font-bold">Co-Curricular Activities</h3>
+
+              <p class="text-muted">
+                Dee project(Automatic street light control).
+              </p>
+
+              <div class="btn-row">
+                <a
+                  href="assets/project.jpeg"
+                  target="_blank"
+                  class="cert-btn"
+                >
+                  View project
+                  <span
+                    class="material-symbols-outlined"
+                    style="font-size: 1.2rem"
+                    >open_in_new</span
+                  >
+                </a>
+
+                <a
+                  href="assets/project_working.mp4"
+                  target="_blank"
+                  class="cert-btn"
+                >
+                  View project Video
+                  <span
+                    class="material-symbols-outlined"
+                    style="font-size: 1.2rem"
+                    >open_in_new</span
+                  >
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Anthropic Certifications Section -->
+      <section id="antropic-tab">
+        <div class="container">
+          <div class="text-center mb-4">
+            <span class="section-label">06 // AI Expertise</span>
+            <h2 class="section-title">Anthropic Certifications</h2>
+            <p class="text-muted" style="max-width: 32rem; margin: 0 auto">
+              A showcase of my proficiency in AI technologies, including Claude,
+              prompt engineering, and ethical AI implementation.
+            </p>
+          </div>
+
+          <div class="cert-grid">
+            <!-- Certificate 1 -->
+            <div class="cert-card">
+              <div class="cert-img-container">
+                <img src="assets/c1.jpeg" alt="Claude 101 Certificate" />
+              </div>
+              <h3>Claude 101</h3>
+              <p>
+                Mastered the fundamentals of Claude AI, including interface
+                navigation and core capabilities.
+              </p>
+              <a href="assets/c1.jpeg" target="_blank" class="view-btn">
+                View Certificate
+                <span class="material-symbols-outlined">open_in_new</span>
+              </a>
+            </div>
+
+            <!-- Certificate 2 -->
+            <div class="cert-card">
+              <div class="cert-img-container">
+                <img src="assets/c2.jpeg" alt="AI Fluency Certificate" />
+              </div>
+              <h3>AI Fluency</h3>
+              <p>
+                Developed expertise in AI-driven workflows and effective tool
+                integration for productivity.
+              </p>
+              <a href="assets/c2.jpeg" target="_blank" class="view-btn">
+                View Certificate
+                <span class="material-symbols-outlined">open_in_new</span>
+              </a>
+            </div>
+
+            <!-- Certificate 3 -->
+            <div class="cert-card">
+              <div class="cert-img-container">
+                <img src="assets/c3.jpeg" alt="AI Framework Certificate" />
+              </div>
+              <h3>AI Framework</h3>
+              <p>
+                In-depth study of robust AI systems, architecture, and reliable
+                decision-making models.
+              </p>
+              <a href="assets/c3.jpeg" target="_blank" class="view-btn">
+                View Certificate
+                <span class="material-symbols-outlined">open_in_new</span>
+              </a>
+            </div>
+
+            <!-- Certificate 4 -->
+            <div class="cert-card">
+              <div class="cert-img-container">
+                <img src="assets/c4.jpeg" alt="Students AI Certificate" />
+              </div>
+              <h3>Students AI</h3>
+              <p>
+                Explored the application of AI in academic research, learning
+                optimization, and student success.
+              </p>
+              <a href="assets/c4.jpeg" target="_blank" class="view-btn">
+                View Certificate
+                <span class="material-symbols-outlined">open_in_new</span>
+              </a>
+            </div>
+
+            <!-- Certificate 5 -->
+            <div class="cert-card">
+              <div class="cert-img-container">
+                <img src="assets/c5.jpeg" alt="AI Ethics Certificate" />
+              </div>
+              <h3>AI Ethics</h3>
+              <p>
+                Focused on the moral implications of AI, focusing on fairness,
+                privacy, and responsible use.
+              </p>
+              <a href="assets/c5.jpeg" target="_blank" class="view-btn">
+                View Certificate
+                <span class="material-symbols-outlined">open_in_new</span>
+              </a>
+            </div>
+
+            <!-- Certificate 6 -->
+            <div class="cert-card">
+              <div class="cert-img-container">
+                <img
+                  src="assets/c6.jpeg"
+                  alt="Prompt Engineering Certificate"
+                />
+              </div>
+              <h3>Prompt Engineering</h3>
+              <p>
+                Advanced techniques for crafting precise prompts to achieve
+                high-quality AI outputs.
+              </p>
+              <a href="assets/c6.jpeg" target="_blank" class="view-btn">
+                View Certificate
+                <span class="material-symbols-outlined">open_in_new</span>
+              </a>
+            </div>
+
+            <!-- Certificate 7 -->
+            <div class="cert-card">
+              <div class="cert-img-container">
+                <img src="assets/c7.jpeg" alt="AI Nonprofits Certificate" />
+              </div>
+              <h3>AI Nonprofits</h3>
+              <p>
+                leveraging AI technologies for social impact and operational
+                efficiency in non-profit sectors.
+              </p>
+              <a href="assets/c7.jpeg" target="_blank" class="view-btn">
+                View Certificate
+                <span class="material-symbols-outlined">open_in_new</span>
+              </a>
+            </div>
+
+            <!-- Certificate 8 -->
+            <div class="cert-card">
+              <div class="cert-img-container">
+                <img src="assets/c8.jpeg" alt="Claude Advanced Certificate" />
+              </div>
+              <h3>Claude Advanced</h3>
+              <p>
+                Comprehensive mastery of Claude AI for complex business writing
+                and technical automation.
+              </p>
+              <a href="assets/c8.jpeg" target="_blank" class="view-btn">
+                View Certificate
+                <span class="material-symbols-outlined">open_in_new</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="bg-low">
+        <div class="container contact">
+          <span class="section-label text-center">06 // Connection</span>
+          <h2 class="section-title text-center" style="font-size: 4rem">
+            Let's Talk.
+          </h2>
+          <p class="text-muted" style="font-size: 1.125rem">
+            Whether you're looking for a collaborator or just want to say hi, my
+            inbox is always open.
+          </p>
+          <a href="mailto:pragati.gaikwad@mitaoe.edu.in" class="contact-email">
+            <div class="contact-icon">
+              <span class="material-symbols-outlined">alternate_email</span>
+            </div>
+            <span>pragati.gaikwad@mitaoe.edu.in</span>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-content">
+        <div class="footer-logo text-on-surface">Pragati Gaikwad</div>
+        <p class="footer-text">
+          © 2026 Pragati Gaikwad // Engineering Portfolio
+        </p>
+        <div class="footer-links">
+          <a href="https://www.linkedin.com/in/pragati-gaikwad-aa557836a/"
+            >LinkedIn</a
+          >
+          <a href="https://github.com/pragatigaikwad1617">GitHub</a>
+          <a href="mailto:pragati.gaikwad@mitaoe.edu.in">Email</a>
+        </div>
+      </div>
+    </footer>
+    <script>
+      const follower = document.querySelector(".cursor-follower");
+      let mouseX = 0;
+      let mouseY = 0;
+      let followerX = 0;
+      let followerY = 0;
+
+      window.addEventListener("mousemove", (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+      });
+
+      function animate() {
+        // Smooth interpolation - reduced from 0.1 to 0.05 for slower movement
+        followerX += (mouseX - followerX) * 0.04;  //play with the speed here
+        followerY += (mouseY - followerY) * 0.04;
+
+        follower.style.transform = `translate(${followerX}px, ${followerY}px) translate(-50%, -50%)`;
+
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+    </script>
+  </body>
+</html>
